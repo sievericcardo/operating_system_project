@@ -108,9 +108,10 @@ I tested the simulation with various values of the different variables. I attach
 It can be notices that, the more the number of the processes are added, the shortest the length of the name and the smaller the genome. A possible reason for this is due to the fact that, having more process working concurrently, the handler will have to process many more matches and the generations of the new processes.
 Another reason for the fact that performance dropped with 100 processes is to be found in the system specification of the computer used and its processor.
 
-<!-- 
-		WIP sections
-
 ## Possible runtime errors
 
--->
+During the simulation, due to the strong asyncronous nature of the project, CPU get scheduling problems. From time to time, the following errors were found:
+
+- During simulation, the population gets saturated with just one type of element: even with the initial check, it happens, from time to time, that some processes are not yet identified as terminated and new processes gets generated before. The `birth_death` random death bypass this problem, since one random process will be killed and the check will enforce the generation of a process of different type.
+- Resource problem: I haven't encountered this problem lately, but happened during development phase. The system could not handle and manage correctly resources for the simulation as they were requested. A system reboot could fix this, since restarting it would terminate all possible remaining traces of the previous processes.
+- System block: mostly due to a possible fork bomb. When disabling the debug print, the number of processes generated would be so high to be unbearable for the system to sustain it. A `killall` system call would terminate all processes active.
